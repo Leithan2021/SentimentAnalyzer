@@ -1,24 +1,22 @@
-// backend/server.js
-const express = require('express');
-const cors = require('cors');
 const { pipeline } = require('@huggingface/inference');
 
-
-const app = express();
-const port = process.env.PORT || 5000;
-
-app.use(cors());
-app.use(express.json());
-
 async function analyzeText(text) {
-  // ... (same analyzeText function as before)
+  try {
+    const apiKey = process.env.HUGGING_FACE_API_KEY; // Access the environment variable
+
+
+    const classifier = await pipeline(
+      'sentiment-analysis',
+      'distilbert-base-uncased-finetuned-sst-2-english',
+       {
+            api_key: apiKey, // Add the API key here ONLY IF needed
+
+       }
+    );
+
+
+    // ... (rest of your code)
+  } catch (error) {
+    // ... error handling
+  }
 }
-
-
-app.post('/analyze', async (req, res) => {
-  // ... (same app.post function as before)
-});
-
-app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
-});
