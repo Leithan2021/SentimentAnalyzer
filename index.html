@@ -3,9 +3,60 @@
 <html>
 <head>
   <title>SentimentAnalyzer</title>
-    <style>
-    /* ... same CSS as before ... */
-    </style>
+   <style>
+    body {
+        font-family: sans-serif;
+    }
+
+    #container {
+        width: 500px;
+        margin: 20px auto;  /* Center the container */
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+    }
+
+    textarea {
+        width: calc(100% - 22px); /* Account for padding and border */
+        height: 100px;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        resize: vertical;
+        box-sizing: border-box; /* Include padding and border in element's total width and height */
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: #4CAF50; /* Green */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer; /* Change cursor to pointer on hover */
+    }
+
+    button:hover {
+        background-color: #45a049; /* Darker green on hover */
+    }
+
+    #result {
+        font-weight: bold;
+        margin-top: 10px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px; /* Rounded result box */
+
+    }
+
+        /* Responsive design for smaller screens */
+    @media (max-width: 600px) {
+        #container {
+            width: 90%; /* Adjust width for smaller screens */
+        }
+    }
+</style>
 </head>
 <body>
 <div id="container">
