@@ -67,32 +67,32 @@
 </div>
 <script>
   async function analyzeSentiment() {
-    const text = document.getElementById('textInput').value;
-    const resultDiv = document.getElementById('result');
-    resultDiv.textContent = "Analyzing..."; // Provide feedback while waiting
+    // ... other code ...
 
     try {
-      const response = await fetch('/analyze', { // Send request to backend
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ text }), // Send text in the request body
-      });
+        // ... fetch call ...
 
-      if (!response.ok) {  // Check for non-2xx status codes (e.g., 404, 500)
-        const errorData = await response.json(); // Try to get error message from server
-        throw new Error(errorData.error || 'Network response was not ok'); 
+      if (!response.ok) {  // Handles non-2xx responses
+        const errorData = await response.json(); // Get error from server (if it is JSON)
+        const errorMessage = errorData.error || 'Network response was not ok'; // Extract error message
+        resultDiv.textContent = `Error: ${errorMessage}`; // More informative message
+
+        // Optionally, re-throw for better logging/debugging if the server didn't return a JSON error.
+        if(!errorData.error) {
+            throw new Error(`Server Error: ${response.status} - ${response.statusText}`); //  Log the error including HTTP status 
+        }
+
+        return; // Stop further processing if there was an error.
+
       }
 
-      const data = await response.json();
-      resultDiv.textContent = `Sentiment: ${data.sentiment}`;
-
+      // ... rest of the successful response handling
     } catch (error) {
-      console.error('Error:', error);
-      resultDiv.textContent = `Error: ${error.message}`;  // Display specific error message
+      console.error('Error:', error); // Log full error on the console.
+      resultDiv.textContent = `Error: ${error.message}`;  // Show the error to the user
     }
   }
+
 </script>
 
 </body>
