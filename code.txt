@@ -1,22 +1,11 @@
-# SentimentAnalyzer
-
-This is a simple sentiment analysis web application.
-
-## Installation
-
-**Frontend:**
-
-No specific installation is required for the frontend. Simply open `index.html` in your web browser.
-
-**Backend:**
-
-1. Make sure you have Node.js and npm installed.
-2. Navigate to the `backend` directory.
-3. Run `npm install express cors @huggingface/inference` to install the necessary dependencies.
-
-
-## Usage
-
-1. **Start the backend server:**
-   ```bash
-   node server.js 
+{
+  "version": 2,
+  "builds": [
+    { "src": "backend/server.js", "use": "@vercel/node" },
+    { "src": "frontend/**/*", "use": "@vercel/static" }  // Important: added for frontend!
+  ],
+  "routes": [
+    { "src": "/analyze", "dest": "backend/server.js" }, // Correct destination for the backend
+    {"src": "/(.*)", "dest": "frontend/index.html"}
+  ]
+}
