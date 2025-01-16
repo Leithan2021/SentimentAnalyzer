@@ -15,7 +15,33 @@
     <div id="result"></div>
 </div>
 <script>
-    // ... same JavaScript as before ...
+  async function analyzeSentiment() {
+    const text = document.getElementById('textInput').value;
+    const resultDiv = document.getElementById('result');
+    resultDiv.textContent = "Analyzing..."; // Provide feedback while waiting
+
+    try {
+      const response = await fetch('/analyze', { // Send request to backend
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ text }), // Send text in the request body
+      });
+
+      if (!response.ok) {  // Check for non-2xx status codes (e.g., 404, 500)
+        const errorData = await response.json(); // Try to get error message from server
+        throw new Error(errorData.error || 'Network response was not ok'); 
+      }
+
+      const data = await response.json();
+      resultDiv.textContent = `Sentiment: ${data.sentiment}`;
+
+    } catch (error) {
+      console.error('Error:', error);
+      resultDiv.textContent = `Error: ${error.message}`;  // Display specific error message
+    }
+  }
 </script>
 
 </body>
